@@ -4,6 +4,7 @@ dotenv.config();
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+const connectDB = require("./config/db.js");
 const errorHandler = require("./middleware/errorHandler.js");
 
 // Initialize express application
@@ -14,12 +15,12 @@ connectDB();
 
 // Enable CORS 
 app.use(
-  cors({
-    origin: "*", 
-    methods: ["GET", "POST", "PUT", "DELETE"], 
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true,
-  })
+    cors({
+        origin: "*",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true,
+    })
 );
 
 // Middleware
@@ -36,23 +37,23 @@ app.use(errorHandler);
 
 // Handle 404 - Route Not Found
 app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    error: "Route not found",
-    statusCode: 404,
-  });
+    res.status(404).json({
+        success: false,
+        error: "Route not found",
+        statusCode: 404,
+    });
 });
 
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(
-    `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
-  );
+    console.log(
+        `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
+    );
 });
 
 
 process.on("unhandledRejection", (err) => {
-  console.error(`Unhandled Rejection: ${err.message}`);
-  process.exit(1);
+    console.error(`Unhandled Rejection: ${err.message}`);
+    process.exit(1);
 });
