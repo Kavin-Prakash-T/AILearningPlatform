@@ -1,4 +1,4 @@
-const errorHandler = (err, req, res, next) => {
+const errorHandlerMiddleware = (err, req, res, next) => {
     let statusCode = err.statusCode || 500;
     let message = err.message || "Server Error";
 
@@ -52,4 +52,4 @@ const errorHandler = (err, req, res, next) => {
 
 }
 
-module.exports = errorHandler;
+module.exports = errorHandlerMiddleware;
