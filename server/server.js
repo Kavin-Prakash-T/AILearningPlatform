@@ -5,7 +5,9 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const connectDB = require("./config/db.js");
-const errorHandler = require("./middleware/errorHandler.js");
+const errorHandler = require("./middleware/errorHandlerMiddleware.js");
+
+const authRoutes = require("./routes/authRoutes.js");
 
 // Initialize express application
 const app = express();
@@ -31,9 +33,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 //Routes
+app.use("/api/auth", authRoutes);
 
-
-app.use(errorHandler);
+app.use(errorHandlerMiddleware);
 
 // Handle 404 - Route Not Found
 app.use((req, res) => {
